@@ -9,22 +9,43 @@ services:
     volumes:
       - tg_shared_data:/var/lib/telegram-bot-api
     environment:
-      - TELEGRAM_API_ID=37607965
-      - TELEGRAM_API_HASH=f12598272a134c425a8ca721fa8030a9
+      - TELEGRAM_API_ID=${TELEGRAM_API_ID}
+      - TELEGRAM_API_HASH=${TELEGRAM_API_HASH}
       - TELEGRAM_LOCAL=True
     restart: always
 
-  # 2. Контейнер вашего Node.js / TypeScript бота
   tg-bot:
     build: .
     container_name: typescript_tg_bot
     restart: always
     depends_on:
-      - telegram-api-server # Бот запустится только после сервера API
+      telegram-api-server:
+        condition: service_started
+      postgres:
+        condition: service_healthy
     volumes:
-      - tg_shared_data:/var/lib/telegram-bot-api # Общий доступ к скачанным видео
+      - tg_shared_data:/var/lib/telegram-bot-api
     env_file:
-      - .env # Подгружаем ваш файл с токенами и доступами к БД
+      - .env
+
+  postgres:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:5432:5432"
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+    volumes:
+      - db-data:/var/lib/postgresql/data
 
 volumes:
-  tg_shared_data: # Общее хранилище, чтобы бот мог забирать файлы напрямую
+  tg_shared_data:
+  db-data:
