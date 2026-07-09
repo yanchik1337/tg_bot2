@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  telegram-api-server:
+    image: aiogram/telegram-bot-api:latest
+    container_name: telegram_api_server
+    ports:
+      - "8081:8081"
+    volumes:
+      - tg_shared_data:/var/lib/telegram-bot-api
+    environment:
+      - TELEGRAM_API_ID=37607965
+      - TELEGRAM_API_HASH=f12598272a134c425a8ca721fa8030a9
+      - TELEGRAM_LOCAL=True
+    restart: always
+
+  # 2. Контейнер вашего Node.js / TypeScript бота
+  tg-bot:
+    build: .
+    container_name: typescript_tg_bot
+    restart: always
+    depends_on:
+      - telegram-api-server # Бот запустится только после сервера API
+    volumes:
+      - tg_shared_data:/var/lib/telegram-bot-api # Общий доступ к скачанным видео
+    env_file:
+      - .env # Подгружаем ваш файл с токенами и доступами к БД
+
+volumes:
+  tg_shared_data: # Общее хранилище, чтобы бот мог забирать файлы напрямую
