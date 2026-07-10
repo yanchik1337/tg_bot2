@@ -14,7 +14,11 @@ if (!BOT_TOKEN) {
   throw new Error("BOT_TOKEN is not set in .env file");
 }
 
-export const bot = new Bot<BotContext>(BOT_TOKEN);
+export const bot = new Bot<BotContext>(BOT_TOKEN, {
+  client: {
+    apiRoot: "http://telegram_api_server:8081",
+  },
+});
 bot.use(
   session<SessionData, BotContext>({
     initial: () => ({
