@@ -1,10 +1,10 @@
 import { google } from "googleapis";
-import { auth } from "../config/google.js";
+import { OAuth2Client } from "../config/google.js";
 import type { Readable } from "stream";
 
 const drive = google.drive({
   version: "v3",
-  auth,
+  auth: OAuth2Client,
 });
 
 export async function uploadFile(
