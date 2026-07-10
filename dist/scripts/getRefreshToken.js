@@ -32,4 +32,3 @@ const server = http.createServer(async (req, res) => {
     await getCode(req.url);
 });
 server.listen(3000);
-//# sourceMappingURL=getRefreshToken.js.map

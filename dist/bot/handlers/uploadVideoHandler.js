@@ -52,4 +52,3 @@ export async function uploadVideoHandler(ctx, next) {
         reply_markup: startHanderlKeyboard,
     });
 }
-//# sourceMappingURL=uploadVideoHandler.js.map

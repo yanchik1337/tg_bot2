@@ -1,8 +1,8 @@
 import { google } from "googleapis";
-import { auth } from "../config/google.js";
+import { OAuth2Client } from "../config/google.js";
 const drive = google.drive({
     version: "v3",
-    auth,
+    auth: OAuth2Client,
 });
 export async function uploadFile(content, name, folderId, mimeType) {
     const response = await drive.files.create({
@@ -15,4 +15,3 @@ export async function uploadFile(content, name, folderId, mimeType) {
     }
     return id;
 }
-//# sourceMappingURL=video.js.map

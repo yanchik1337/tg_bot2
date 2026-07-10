@@ -12,4 +12,3 @@ AppDataSource.initialize()
     .catch((err) => {
     console.error("Ошибка запуска:", err);
 });
-//# sourceMappingURL=index.js.map

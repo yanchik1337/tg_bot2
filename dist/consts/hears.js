@@ -3,4 +3,3 @@ export const Hears = {
     UPLOAD_VIDEO: "Загрузить видео",
     HELP: "Справка",
 };
-//# sourceMappingURL=hears.js.map

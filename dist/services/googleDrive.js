@@ -33,4 +33,3 @@ export async function createFolder(name, email) {
     }
     return id;
 }
-//# sourceMappingURL=googleDrive.js.map

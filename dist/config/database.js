@@ -15,4 +15,3 @@ export const AppDataSource = new DataSource({
     logging: false,
     entities: [User, Video],
 });
-//# sourceMappingURL=database.js.map

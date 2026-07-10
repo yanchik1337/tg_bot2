@@ -8,4 +8,3 @@ export const OAuth2Client = new google.auth.OAuth2(client_id, client_secret, red
 OAuth2Client.setCredentials({
     refresh_token,
 });
-//# sourceMappingURL=google.js.map

@@ -55,4 +55,3 @@ bot.on("message:video", (ctx, next) => {
     }
     return next();
 });
-//# sourceMappingURL=bot.js.map

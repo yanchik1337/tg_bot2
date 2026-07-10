@@ -56,4 +56,3 @@ Video = __decorate([
     Entity()
 ], Video);
 export { Video };
-//# sourceMappingURL=Video.js.map

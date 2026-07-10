@@ -5,4 +5,3 @@ export async function HelpHandler(ctx) {
   а также добавления видео
  `);
 }
-//# sourceMappingURL=helpHandler.js.map

@@ -5,4 +5,3 @@ export async function startHandler(ctx) {
     await ctx.reply(`Привет, ${name}!
     Создавай папку и загружай видео`, { reply_markup: startHanderlKeyboard });
 }
-//# sourceMappingURL=startHandler.js.map

@@ -6,4 +6,3 @@ export const startHanderlKeyboard = new Keyboard()
     .text(Hears.HELP)
     .resized()
     .persistent();
-//# sourceMappingURL=startHandelrKB.js.map

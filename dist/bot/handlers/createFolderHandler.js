@@ -37,4 +37,3 @@ export async function createFolderHandler(ctx, next) {
         reply_markup: uploadVideoKeyboard,
     });
 }
-//# sourceMappingURL=createFolderHandler.js.map
