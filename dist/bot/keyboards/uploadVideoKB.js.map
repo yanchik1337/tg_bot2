@@ -1,0 +1,1 @@
+{"version":3,"file":"uploadVideoKB.js","sourceRoot":"","sources":["../../../src/bot/keyboards/uploadVideoKB.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,KAAK,EAAE,MAAM,uBAAuB,CAAC;AAC9C,OAAO,EAAE,QAAQ,EAAE,MAAM,QAAQ,CAAC;AAClC,MAAM,CAAC,MAAM,mBAAmB,GAAG,IAAI,QAAQ,EAAE;KAC9C,IAAI,CAAC,KAAK,CAAC,YAAY,CAAC;KACxB,OAAO,EAAE;KACT,UAAU,EAAE,CAAC"}
