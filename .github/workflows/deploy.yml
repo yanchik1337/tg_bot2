@@ -25,5 +25,5 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd tg_bot2
-            git reset --hard origin/master
-            docker compose up -d --build --remove-orphans
+            git pull
+            docker compose up -d --build
