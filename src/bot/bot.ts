@@ -16,7 +16,7 @@ if (!BOT_TOKEN) {
 
 export const bot = new Bot<BotContext>(BOT_TOKEN, {
   client: {
-    apiRoot: "http://telegram_api_server:8081",
+    apiRoot: "http://telegram-api-server:8081",
   },
 });
 bot.use(
