@@ -39,9 +39,11 @@ jobs:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "dist-build/**/*"
+
+          source: "dist-build/dist,dist-build/package.json,dist-build/package-lock.json,dist-build/docker-compose.yml,dist-build/Dockerfile"
           target: "~/tg_bot2"
           strip_components: 1
+          rm: true
 
       - name: compose up
         uses: appleboy/ssh-action@v1.0.3
