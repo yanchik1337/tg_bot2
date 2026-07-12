@@ -19,6 +19,7 @@ export const bot = new Bot<BotContext>(BOT_TOKEN, {
     apiRoot: "http://telegram-api-server:8081",
   },
 });
+
 bot.use(
   session<SessionData, BotContext>({
     initial: () => ({
