@@ -1,8 +1,6 @@
 FROM node:24-alpine
 WORKDIR /app
-COPY package*.json ./
-RUN npm install
-
-COPY . .
-RUN npm run build
+COPY package.json package-lock.json ./
+RUN npm ci --only=production
+COPY dist ./dist
 CMD ["node", "dist/index.js"]
