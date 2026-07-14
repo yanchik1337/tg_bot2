@@ -2,11 +2,8 @@ import { google } from "googleapis";
 import { required } from "../utils/env.js";
 import "dotenv/config";
 import http from "node:http";
-const client_id = required("GOOGLE_OAUTH_CLIENT_ID");
-const client_secret = required("GOOGLE_OAUTH_CLIENT_SECRET");
-const redirect_uri = required("GOOGLE_OAUTH_REDIRECT_URI");
+import { OAuth2Client } from "../config/google.js";
 const scope_url = ["https://www.googleapis.com/auth/drive.file"];
-const OAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uri);
 const authURL = OAuth2Client.generateAuthUrl({
     access_type: "offline",
     scope: scope_url,

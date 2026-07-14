@@ -6,6 +6,7 @@ import type { BotContext } from "../types/bot-types.js";
 import { uploadFile } from "../../services/video.js";
 import { Video } from "../../entities/Video.js";
 import { startHanderlKeyboard } from "../keyboards/startHandelrKB.js";
+import { createReadStream } from "node:fs";
 
 export async function uploadVideoHandler(
   ctx: BotContext,
@@ -23,15 +24,15 @@ export async function uploadVideoHandler(
     return;
   }
   const telegramFile = (await ctx.api.getFile(videoId)).file_path;
-  const videoURL = `https://api.telegram.org/file/bot${BOT_TOKEN}/${telegramFile}`;
+  const filePath = telegramFile!.split("/videos/")[1];
+  console.log("file_PATH-videos", filePath);
+  const videoURL = `http://telegram-api-server:8081/file/bot${BOT_TOKEN}/videos/${filePath}`;
 
-  const { body } = await fetch(videoURL);
-  if (!body) {
-    await ctx.reply("Не удалось загрузить видео, попробуйте еще раз");
-    return;
-  }
+  console.log("FILE_PATH:", telegramFile);
+  console.log("DOWNLOAD_URL:", videoURL);
 
-  const videoStream = Readable.fromWeb(body as any);
+  const videoStream = createReadStream(telegramFile!);
+  console.log("VIDEO_STREAM:", videoStream);
   const existingUser = await userRepository.findOne({
     where: { telegramId },
   });
