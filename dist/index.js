@@ -1,13 +1,15 @@
 import "reflect-metadata";
 import { AppDataSource } from "./config/database.js";
 import { bot } from "./bot/bot.js";
-bot.catch((err) => {
-    console.error("Bot error:", err.error);
-});
 AppDataSource.initialize()
     .then(() => {
     console.log("Запуск системы...");
-    return bot.start();
+    console.log("Вызываю bot.start()...");
+    return bot.start({
+        onStart: (botInfo) => {
+            console.log("Бот успешно запущен:", botInfo.username);
+        },
+    });
 })
     .catch((err) => {
     console.error("Ошибка запуска:", err);

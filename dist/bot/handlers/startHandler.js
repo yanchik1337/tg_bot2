@@ -1,4 +1,3 @@
-import { Hears } from "../../consts/hears.js";
 import { startHanderlKeyboard } from "../keyboards/startHandelrKB.js";
 export async function startHandler(ctx) {
     const name = ctx.from?.first_name;
