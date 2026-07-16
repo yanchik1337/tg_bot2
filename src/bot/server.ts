@@ -11,15 +11,17 @@ const client_id = required("GOOGLE_OAUTH_CLIENT_ID");
 const client_secret = required("GOOGLE_OAUTH_CLIENT_SECRET");
 const userRepository = AppDataSource.getRepository(User);
 export const server = http.createServer(async (req, res) => {
-  const code = new URL(req.url!, "http://localhost:3000").searchParams.get(
-    "code",
-  );
+  const code = new URL(
+    req.url!,
+    "http://localhost:3000/oauth2callback",
+  ).searchParams.get("code");
   if (!code) {
     return res.end(`параматер ${code} не задан`);
   }
-  const state = new URL(req.url!, "http://localhost:3000").searchParams.get(
-    "state",
-  );
+  const state = new URL(
+    req.url!,
+    "http://localhost:3000/oauth2callback",
+  ).searchParams.get("state");
   if (!state) {
     return res.end(`параматер ${code} не задан`);
   }
