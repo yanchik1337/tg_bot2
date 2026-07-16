@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import { AppDataSource } from "./config/database.js";
 import { bot } from "./bot/bot.js";
-
+import { server } from "./bot/server.js";
 AppDataSource.initialize()
   .then(() => {
     console.log("Запуск системы...");

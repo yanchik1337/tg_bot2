@@ -39,6 +39,11 @@ export async function uploadVideoHandler(
     await ctx.reply("Произошла ошибка при создании папки, попробуйте снова.");
     return;
   }
+  const userToken = existingUser.googleAuthToken;
+  if (!userToken) {
+    await ctx.reply(`Произошла ошибка.Попробуйте авторизоваться снова.`);
+    return;
+  }
   const folderId = existingUser.googleDriveFolderId;
   if (!folderId) {
     await ctx.reply("Ошибка: не указан ID папки Google Drive!");
@@ -52,6 +57,7 @@ export async function uploadVideoHandler(
     videoName,
     folderId,
     mime_type,
+    userToken,
   );
 
   const currentVideo = videoRepository.create({

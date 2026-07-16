@@ -1,15 +1,11 @@
 import { google } from "googleapis";
-import { OAuth2Client } from "../config/google.js";
-
-const drive = google.drive({
-  version: "v3",
-  auth: OAuth2Client,
-});
+import { getDriveClientForUser } from "../config/driveClient.js";
 
 export async function createFolder(
   name: string,
-  email: string,
+  refreshToken: string,
 ): Promise<string> {
+  const drive = getDriveClientForUser(refreshToken);
   if (!name) {
     throw new Error("Имя папки не задано!");
   }
@@ -25,17 +21,5 @@ export async function createFolder(
     throw new Error("Не удалось создать папку, попробуйте еще раз");
   }
 
-  try {
-    await drive.permissions.create({
-      fileId: id,
-      requestBody: {
-        role: "writer",
-        type: "user",
-        emailAddress: email,
-      },
-    });
-  } catch (e: any) {
-    console.error(`Не удалось выдать доступ к папке ${id} для ${email}:`, e);
-  }
   return id;
 }

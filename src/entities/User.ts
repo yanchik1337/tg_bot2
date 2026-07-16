@@ -28,6 +28,9 @@ export class User {
   @Column({ nullable: true })
   googleDriveFolderName?: string;
 
+  @Column({ nullable: true })
+  googleAuthToken?: string;
+
   @CreateDateColumn()
   createdAt!: Date;
 

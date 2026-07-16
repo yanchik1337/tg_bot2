@@ -1,10 +1,10 @@
-import { Readable } from "node:stream";
 import { AppDataSource } from "../../config/database.js";
 import { User } from "../../entities/User.js";
 import { required } from "../../utils/env.js";
 import { uploadFile } from "../../services/video.js";
 import { Video } from "../../entities/Video.js";
 import { startHanderlKeyboard } from "../keyboards/startHandelrKB.js";
+import { createReadStream } from "node:fs";
 export async function uploadVideoHandler(ctx, next) {
     const BOT_TOKEN = required("BOT_TOKEN");
     const userRepository = AppDataSource.getRepository(User);
@@ -18,18 +18,23 @@ export async function uploadVideoHandler(ctx, next) {
         return;
     }
     const telegramFile = (await ctx.api.getFile(videoId)).file_path;
-    const videoURL = `https://api.telegram.org/file/bot${BOT_TOKEN}/${telegramFile}`;
-    const { body } = await fetch(videoURL);
-    if (!body) {
-        await ctx.reply("Не удалось загрузить видео, попробуйте еще раз");
-        return;
-    }
-    const videoStream = Readable.fromWeb(body);
+    const filePath = telegramFile.split("/videos/")[1];
+    console.log("file_PATH-videos", filePath);
+    const videoURL = `http://telegram-api-server:8081/file/bot${BOT_TOKEN}/videos/${filePath}`;
+    console.log("FILE_PATH:", telegramFile);
+    console.log("DOWNLOAD_URL:", videoURL);
+    const videoStream = createReadStream(telegramFile);
+    console.log("VIDEO_STREAM:", videoStream);
     const existingUser = await userRepository.findOne({
         where: { telegramId },
     });
     if (!existingUser) {
         await ctx.reply("Произошла ошибка при создании папки, попробуйте снова.");
+        return;
+    }
+    const userToken = existingUser.googleAuthToken;
+    if (!userToken) {
+        await ctx.reply(`Произошла ошибка.Попробуйте авторизоваться снова.`);
         return;
     }
     const folderId = existingUser.googleDriveFolderId;
@@ -38,7 +43,7 @@ export async function uploadVideoHandler(ctx, next) {
         return;
     }
     await ctx.reply("Загружаю видео на Google Drive...");
-    const newVideoId = await uploadFile(videoStream, videoName, folderId, mime_type);
+    const newVideoId = await uploadFile(videoStream, videoName, folderId, mime_type, userToken);
     const currentVideo = videoRepository.create({
         telegramFileId: videoId,
         googleDriveFileId: newVideoId,

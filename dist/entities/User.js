@@ -16,6 +16,7 @@ let User = class User {
     googleAccountEmail;
     googleDriveFolderId;
     googleDriveFolderName;
+    googleAuthToken;
     createdAt;
     updatedAt;
     videos;
@@ -44,6 +45,10 @@ __decorate([
     Column({ nullable: true }),
     __metadata("design:type", String)
 ], User.prototype, "googleDriveFolderName", void 0);
+__decorate([
+    Column({ nullable: true }),
+    __metadata("design:type", String)
+], User.prototype, "googleAuthToken", void 0);
 __decorate([
     CreateDateColumn(),
     __metadata("design:type", Date)

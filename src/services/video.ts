@@ -1,18 +1,14 @@
-import { google } from "googleapis";
-import { OAuth2Client } from "../config/google.js";
 import type { Readable } from "stream";
-
-const drive = google.drive({
-  version: "v3",
-  auth: OAuth2Client,
-});
+import { getDriveClientForUser } from "../config/driveClient.js";
 
 export async function uploadFile(
   content: Readable,
   name: string,
   folderId: string,
   mimeType: string,
+  refreshToken: string,
 ): Promise<string> {
+  const drive = getDriveClientForUser(refreshToken);
   const response = await drive.files.create({
     requestBody: { name, parents: [folderId] },
     media: { body: content, mimeType },
