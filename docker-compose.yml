@@ -6,21 +6,11 @@ services:
       - "8081:8081"
     volumes:
       - tg_shared_data:/var/lib/telegram-bot-api
-    entrypoint:
-      [
-        "telegram-bot-api",
-        "--dir=/var/lib/telegram-bot-api",
-        "--temp-dir=/tmp/telegram-bot-api",
-        "--username=telegram-bot-api",
-        "--groupname=telegram-bot-api",
-        "--http-port=8081",
-        "--local",
-        "--proxy=http://[2a03:b0c0:3:d0::1dfd:1]:8080",
-      ]
     environment:
       - TELEGRAM_API_ID=${TELEGRAM_API_ID}
       - TELEGRAM_API_HASH=${TELEGRAM_API_HASH}
       - TELEGRAM_LOCAL=True
+      - TELEGRAM_PROXY=http://[2a03:b0c0:3:d0::1dfd:1]:8080
     restart: always
 
   tg-bot:
