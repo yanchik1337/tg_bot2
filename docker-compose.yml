@@ -10,16 +10,16 @@ services:
       - TELEGRAM_API_ID=${TELEGRAM_API_ID}
       - TELEGRAM_API_HASH=${TELEGRAM_API_HASH}
       - TELEGRAM_LOCAL=True
-      - http_proxy=http://tor-proxy:8118
-      - https_proxy=http://tor-proxy:8118
+      - http_proxy=http://tg-proxy:8118
+      - https_proxy=http://tg-proxy:8118
     restart: always
     depends_on:
-      - tor-proxy
-  tor-proxy:
-    image: dperson/torproxy:latest
-    container_name: tor_proxy_server
-
+      - tg-proxy
+  tg-proxy:
+    image: zscandium/telegram-api-proxy:latest
+    container_name: telegram_free_proxy
     restart: always
+
   tg-bot:
     build: .
     container_name: typescript_tg_bot
