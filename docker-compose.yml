@@ -6,12 +6,11 @@ services:
       - "8081:8081"
     volumes:
       - tg_shared_data:/var/lib/telegram-bot-api
-    command:
-      - --api-id=${TELEGRAM_API_ID}
-      - --api-hash=${TELEGRAM_API_HASH}
-      - --local
-      - --api-url=https://tg-proxy.yanik22801.workers.dev
-
+    environment:
+      - TELEGRAM_API_ID=${TELEGRAM_API_ID}
+      - TELEGRAM_API_HASH=${TELEGRAM_API_HASH}
+      - TELEGRAM_LOCAL=True
+    command: ["telegram-bot-api", "--api-url=https://workers.dev"]
     restart: always
 
   tg-bot:
