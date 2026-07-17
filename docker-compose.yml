@@ -10,7 +10,8 @@ services:
       - --api-id=${TELEGRAM_API_ID}
       - --api-hash=${TELEGRAM_API_HASH}
       - --local
-      - --api-url=https://workers.dev
+      - --api-url=https://tg-proxy.yanik22801.workers.dev
+
     restart: always
 
   tg-bot:
