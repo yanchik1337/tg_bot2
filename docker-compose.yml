@@ -5,11 +5,12 @@ services:
     restart: always
 
     entrypoint: ["/bin/sh", "-c"]
-    command: >
-      "echo 'cache_peer round-sea-bc13.yanik22801.workers.dev parent 443 0 no-query default ssl' >> /etc/squid/squid.conf &&
-       echo 'http_access allow all' >> /etc/squid/squid.conf &&
-       echo 'never_direct allow all' >> /etc/squid/squid.conf &&
-       squid -N"
+    command:
+      - |
+        echo "cache_peer round-sea-bc13.yanik22801.workers.dev parent 443 0 no-query default ssl" >> /etc/squid/squid.conf
+        echo "http_access allow all" >> /etc/squid/squid.conf
+        echo "never_direct allow all" >> /etc/squid/squid.conf
+        squid -N
 
   telegram-api-server:
     image: aiogram/telegram-bot-api:latest
