@@ -1,19 +1,4 @@
 services:
-  tg-proxy-tunnel:
-    image: ubuntu/squid:latest
-    container_name: tg_proxy_tunnel
-    restart: always
-    entrypoint: ["/bin/bash", "-c"]
-    command:
-      - |
-        truncate -s 0 /etc/squid/squid.conf
-        echo "http_port 3128" >> /etc/squid/squid.conf
-        echo "acl localnet src all" >> /etc/squid/squid.conf
-        echo "http_access allow localnet" >> /etc/squid/squid.conf
-        echo "cache_peer round-sea-bc13.yanik22801.workers.dev parent 443 0 no-query default ssl login=passthrough" >> /etc/squid/squid.conf
-        echo "never_direct allow all" >> /etc/squid/squid.conf
-        exec squid -N
-
   telegram-api-server:
     image: aiogram/telegram-bot-api:latest
     container_name: telegram_api_server
@@ -25,14 +10,16 @@ services:
       - TELEGRAM_API_ID=${TELEGRAM_API_ID}
       - TELEGRAM_API_HASH=${TELEGRAM_API_HASH}
       - TELEGRAM_LOCAL=True
-      - HTTP_PROXY=http://tg-proxy-tunnel:3128
-      - HTTPS_PROXY=http://tg-proxy-tunnel:3128
-      - http_proxy=http://tg-proxy-tunnel:3128
-      - https_proxy=http://tg-proxy-tunnel:3128
-    depends_on:
-      - tg-proxy-tunnel
+      - http_proxy=http://tor-proxy:8118
+      - https_proxy=http://tor-proxy:8118
     restart: always
+    depends_on:
+      - tor-proxy
+  tor-proxy:
+    image: dperson/torproxy:latest
+    container_name: tor_proxy_server
 
+    restart: always
   tg-bot:
     build: .
     container_name: typescript_tg_bot
@@ -53,7 +40,7 @@ services:
     image: postgres:15-alpine
     restart: unless-stopped
     ports:
-      - "127.0.0.1:5432:5432"
+      - "127.0.0.1:5433:5432"
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}

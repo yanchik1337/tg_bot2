@@ -41,7 +41,9 @@ export async function uploadVideoHandler(
   }
   const userToken = existingUser.googleAuthToken;
   if (!userToken) {
-    await ctx.reply(`Произошла ошибка.Попробуйте авторизоваться снова.`);
+    await ctx.reply(
+      `Для отправки видео, необходимо быть авторизованным в аккаунт.`,
+    );
     return;
   }
   const folderId = existingUser.googleDriveFolderId;
