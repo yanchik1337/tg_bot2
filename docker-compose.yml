@@ -11,8 +11,6 @@ services:
       - TELEGRAM_API_HASH=${TELEGRAM_API_HASH}
       - TELEGRAM_LOCAL=True
     restart: always
-    depends_on:
-      - tg-proxy
 
   tg-bot:
     build: .
