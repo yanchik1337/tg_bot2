@@ -11,7 +11,10 @@ services:
       - TELEGRAM_API_HASH=${TELEGRAM_API_HASH}
       - TELEGRAM_LOCAL=True
     command:
-      ["telegram-bot-api", "--api-url=https://tg-proxy.yanik22801.workers.dev"]
+      [
+        "telegram-bot-api",
+        "--api-url=https://round-sea-bc13.yanik22801.workers.dev",
+      ]
     restart: always
 
   tg-bot:
