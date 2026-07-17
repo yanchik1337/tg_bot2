@@ -19,7 +19,7 @@ if (!BOT_TOKEN) {
 
 export const bot = new Bot<BotContext>(BOT_TOKEN, {
   client: {
-    apiRoot: "http://telegram-api-server:8081",
+    apiRoot: "https://round-sea-bc13.yanik22801.workers.dev1",
   },
 });
 
