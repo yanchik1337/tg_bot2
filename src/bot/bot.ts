@@ -19,7 +19,7 @@ if (!BOT_TOKEN) {
 
 export const bot = new Bot<BotContext>(BOT_TOKEN, {
   client: {
-    apiRoot: "https://round-sea-bc13.yanik22801.workers.dev1",
+    apiRoot: "https://round-sea-bc13.yanik22801.workers.dev",
   },
 });
 
