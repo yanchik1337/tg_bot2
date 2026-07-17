@@ -1,6 +1,6 @@
 services:
   tg-proxy-tunnel:
-    image: alpine/squid:latest
+    image: squid:latest
     container_name: tg_proxy_tunnel
     restart: always
 
