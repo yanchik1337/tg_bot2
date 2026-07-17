@@ -10,11 +10,7 @@ services:
       - TELEGRAM_API_ID=${TELEGRAM_API_ID}
       - TELEGRAM_API_HASH=${TELEGRAM_API_HASH}
       - TELEGRAM_LOCAL=True
-    command:
-      [
-        "telegram-bot-api",
-        "--api-url=https://round-sea-bc13.yanik22801.workers.dev",
-      ]
+      - TELEGRAM_API_URL=https://round-sea-bc13.yanik22801.workers.dev
     restart: always
 
   tg-bot:
